@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Admin - Question Builder</title>
+     <style>
+          body {
+               font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+               background: linear-gradient(135deg, #7a9ecf, #59569a);
+               padding: 0;
+               margin: 0;
+               min-height: 100vh;
+               display: flex;
+               justify-content: center;
+               align-items: center;
+          }
+
+          .container {
+               background: #fff;
+               padding: 25px;
+               border-radius: 15px;
+               box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+               max-width: 700px;
+               width: 100%;
+          }
+
+          h2 {
+               text-align: center;
+               margin-bottom: 20px;
+               color: #2F81F7;
+          }
+
+          .form-group {
+               margin-bottom: 15px;
+          }
+
+          label {
+               display: block;
+               margin-bottom: 6px;
+               font-weight: bold;
+               color: #444;
+          }
+
+          input[type="text"] {
+               width: 100%;
+               padding: 10px;
+               border-radius: 8px;
+               border: 1px solid #ccc;
+               transition: border 0.3s;
+          }
+
+          input[type="text"]:focus {
+               border: 1px solid #2F81F7;
+               outline: none;
+               box-shadow: 0 0 5px rgba(47, 129, 247, 0.5);
+          }
+
+          .options input {
+               margin-bottom: 8px;
+          }
+
+          .btn-group {
+               text-align: center;
+               margin-top: 20px;
+          }
+
+          button {
+               padding: 12px 20px;
+               border: none;
+               border-radius: 10px;
+               cursor: pointer;
+               font-weight: bold;
+               margin: 10px;
+               transition: 0.3s;
+          }
+
+          .add-btn {
+               background: #2F81F7;
+               color: white;
+          }
+
+          .add-btn:hover {
+               background: #0f5cd7;
+          }
+
+          .finish-btn {
+               background: #28a745;
+               color: white;
+          }
+
+          .finish-btn:hover {
+               background: #1e7e34;
+          }
+     </style>
+</head>
+
+<body>
+     <div class="container">
+          <h2>🛠 Admin - Question Builder</h2>
+          <div class="form-group">
+               <label>Enter Question:</label>
+               <input type="text" id="questionText" placeholder="Type your question here...">
+          </div>
+
+          <div class="form-group options">
+               <label>Options:</label>
+               <input type="text" id="opt0" placeholder="Option 1">
+               <input type="text" id="opt1" placeholder="Option 2">
+               <input type="text" id="opt2" placeholder="Option 3">
+               <input type="text" id="opt3" placeholder="Option 4">
+          </div>
+
+          <div class="form-group">
+               <label>Correct Answer (0-3):</label>
+               <input type="text" id="correctAns" placeholder="Enter option index (0-3)">
+          </div>
+
+          <div class="btn-group">
+               <button class="add-btn" onclick="addQuestion()"> Add Question</button>
+               <button class="finish-btn" onclick="saveToExam()"> Save for Exam</button>
+          </div>
+
+
+     </div>
+
+     <script>
+          let questions = [];
+
+          function addQuestion() {
+               const qText = document.getElementById("questionText").value.trim();
+               const opts = [
+                    document.getElementById("opt0").value.trim(),
+                    document.getElementById("opt1").value.trim(),
+                    document.getElementById("opt2").value.trim(),
+                    document.getElementById("opt3").value.trim()
+               ];
+               const ans = parseInt(document.getElementById("correctAns").value);
+
+               if (!qText || opts.some(o => !o) || isNaN(ans) || ans < 0 || ans > 3) {
+                    alert("⚠️ Please fill all fields and provide a valid correct answer (0-3).");
+                    return;
+               }
+
+               questions.push({ q: qText, opts: opts, ans: ans });
+               alert("✅ Question added!");
+
+               // Reset inputs
+               document.getElementById("questionText").value = "";
+               document.getElementById("opt0").value = "";
+               document.getElementById("opt1").value = "";
+               document.getElementById("opt2").value = "";
+               document.getElementById("opt3").value = "";
+               document.getElementById("correctAns").value = "";
+
+          }
+
+          function saveToExam() {
+               if (questions.length === 0) {
+                    alert("⚠️ Please add at least one question first!");
+                    return;
+               }
+               localStorage.setItem("examQuestions", JSON.stringify(questions));
+               alert("✅ Questions saved! Now open your Exam Site.");
+          }
+     </script>
+</body>
+
+</html>
