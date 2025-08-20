@@ -1,16 +1,30 @@
+import { Routes, Route, Navigate, Link } from 'react-router-dom'
 import './App.css'
+
 function App() {
+
+  // Inline page components
+  const Login = () => <h1>Login Page</h1>
+  const Home = () => <h1>Home Page</h1>
+  const Admin = () => <h1>Admin Page</h1>
+  const Exam = () => <h1>Exam Page</h1>
+
   return (
     <div>
-      <h1>Welcome to Exam App 🚀</h1>
-      <p>This is the React part of your project.</p>
-      <p>
-        You can also open:
-        <br />
-        <a href="/login.html">Login Page</a> <br />
-        <a href="/admin.html">Admin Page</a> <br />
-        <a href="/exam.html">Exam Page</a>
-      </p>
+      <nav>
+        <Link to="/">Login</Link> |
+        <Link to="/home">Home</Link> |
+        <Link to="/admin">Admin</Link> |
+        <Link to="/exam">Exam</Link>
+      </nav>
+
+      <Routes>
+        <Route path="/" element={<Navigate to="/login" />} />  {/* Redirect / to /login */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/admin" element={<Admin />} />
+        <Route path="/exam" element={<Exam />} />
+      </Routes>
     </div>
   )
 }
