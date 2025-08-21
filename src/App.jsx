@@ -1,9 +1,7 @@
-import { Routes, Route, Navigate, Link } from 'react-router-dom'
+import { Routes, Route, Link } from 'react-router-dom'
 import './App.css'
 
 function App() {
-
-  // Inline page components
   const Login = () => <h1>Login Page</h1>
   const Home = () => <h1>Home Page</h1>
   const Admin = () => <h1>Admin Page</h1>
@@ -12,14 +10,13 @@ function App() {
   return (
     <div>
       <nav>
-        <Link to="/">Login</Link> |
+        <Link to="/login">Login</Link> |
         <Link to="/home">Home</Link> |
         <Link to="/admin">Admin</Link> |
         <Link to="/exam">Exam</Link>
       </nav>
 
       <Routes>
-        <Route path="/" element={<Navigate to="/login" />} />  {/* Redirect / to /login */}
         <Route path="/login" element={<Login />} />
         <Route path="/home" element={<Home />} />
         <Route path="/admin" element={<Admin />} />
